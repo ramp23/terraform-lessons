@@ -8,7 +8,7 @@ resource "aws_instance" "example1" {
     vpc_security_group_ids = [aws_security_group.instance.id]
     user_data_replace_on_change = true
 
-    user_data = file("user_data.tpl")
+    user_data = data.template_file.user_data.rendered
 
     tags = {
         Name = "terraform-example"
@@ -42,7 +42,7 @@ resource "aws_launch_configuration" "example1" {
     instance_type = "t2.micro"
     security_groups = [aws_security_group.instance.id]
 
-    user_data = file("user_data.tpl")
+    user_data = data.template_file.user_data.rendered
 }
 
 resource "aws_autoscaling_group" "example1" {
@@ -63,6 +63,16 @@ resource "aws_autoscaling_group" "example1" {
 
     lifecycle {
         create_before_destroy = true
+    }
+}
+
+data "template_file" "user_data" {
+    template = file("user_data.sh")
+
+    vars = {
+        server_port = var.server_port
+        db_address = data.terraform_remote_state.db.outputs.address
+        db_port = data.terraform_remote_state.db.outputs.port
     }
 }
 
@@ -160,6 +170,17 @@ resource "aws_lb_listener_rule" "asg" {
         target_group_arn = aws_lb_target_group.asg.arn
     }
 }
+
+data "terraform_remote_state" "db" {
+    backend = "s3"
+
+    config = {
+        bucket = "terraform-up-and-running-state-it-ec2-lessons-42"
+        key = "global/data-stores/terraform.tfstate"
+        region = "eu-central-1"
+    }
+}
+
 # resource "aws_network_acl" "main" {
 #     vpc_id = data.aws_vpc.default.id
 #     subnet_ids = toset(data.aws_subnets.default.ids)
