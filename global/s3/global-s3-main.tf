@@ -54,14 +54,14 @@ resource "aws_dynamodb_table" "terraform_locks" {
   }
 }
 
-terraform {
-  backend "s3" {
-    bucket                  = "terraform-up-and-running-state-it-ec2-lessons-42"
-    key                     = "global/s3/terraform.tfstate"
-    region                  = "eu-central-1"
-    profile                 = "default"
-    shared_credentials_file = "/home/bear/.aws/credentials"
-    dynamodb_table          = "terraform-up-and-running-locks-42"
-    encrypt                 = true
-  }
-}
+# terraform {
+#   backend "s3" {
+#     bucket                  = "terraform-up-and-running-state-it-ec2-lessons-42"
+#     key                     = "global/s3/terraform.tfstate"
+#     region                  = "eu-central-1"
+#     profile                 = "default"
+#     shared_credentials_file = "/home/bear/.aws/credentials"
+#     dynamodb_table          = "terraform-up-and-running-locks-42"
+#     encrypt                 = true
+#   }
+# }

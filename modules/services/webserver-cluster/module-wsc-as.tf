@@ -1,4 +1,6 @@
 resource "aws_autoscaling_group" "example1" {
+  name = "${var.cluster_name}-${aws_launch_configuration.example1.name}"
+
   launch_configuration = aws_launch_configuration.example1.name
   vpc_zone_identifier  = toset(data.aws_subnets.default.ids)
 
