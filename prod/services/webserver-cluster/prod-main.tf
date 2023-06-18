@@ -12,6 +12,7 @@ module "webserver_cluster" {
   min_size               = 2
   max_size               = 10
   enable_autoscaling     = true
+  enable_new_user_data = false
 
   custom_tags = {
     Owner      = "team-foo"

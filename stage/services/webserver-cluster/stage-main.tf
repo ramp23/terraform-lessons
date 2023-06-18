@@ -12,6 +12,7 @@ module "webserver_cluster" {
   min_size               = 2
   max_size               = 10
   enable_autoscaling     = false
+  enable_new_user_data = true
 }
 
 resource "aws_security_group_rule" "allow_testing_inbound" {

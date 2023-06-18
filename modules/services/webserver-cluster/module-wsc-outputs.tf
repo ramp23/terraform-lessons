@@ -20,6 +20,15 @@ output "alb_security_group_id" {
   description = "The ID of the Security Group attached to the load balancer"
 }
 
+output "neo_arn" {
+  value       = aws_iam_user.example[0].arn
+  description = "The ARN for user Neo"
+}
+
+output "all_arns" {
+  value       = aws_iam_user.example[*].arn
+  description = "The ARNs for all users"
+}
 
 # output "fingerprint" {
 #   value = aws_key_pair.terraform_example_key.public_key
