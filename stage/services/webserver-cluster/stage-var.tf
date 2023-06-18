@@ -20,8 +20,3 @@ variable "db_remote_state_key" {
   type        = string
   default     = "stage/data-stores/mysql/terraform.tfstate"
 }
-
-variable "cluster_name" {
-  description = "The name to use to namespace all the resources in the cluster"
-  type        = string
-}

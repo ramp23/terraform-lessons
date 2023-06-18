@@ -9,6 +9,18 @@ variable "ami" {
   default = "ami-04e601abe3e1a910f"
 }
 
+variable "enable_new_user_data" {
+  description = "If set to true, use the new User Data Script"
+  type = bool
+  default = false
+}
+
+variable "server_text" {
+  description = "The text the web server should return"
+  default = "Hello, World!"
+  type = string
+}
+
 variable "cluster_name" {
   description = "The name to use for all the cluster resources"
   type        = string
@@ -63,6 +75,7 @@ variable "user_names" {
 variable "give_neo_cloudwatch_full_access" {
   description = "If true, neo gets full access to CloudWatch"
   type        = bool
+  default = false
 }
 
 variable "policy_name_prefix" {

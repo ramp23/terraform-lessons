@@ -4,8 +4,6 @@ resource "aws_instance" "example1" {
   vpc_security_group_ids      = [aws_security_group.instance.id]
   user_data_replace_on_change = true
 
-  user_data = data.template_file.user_data.rendered
-
   tags = {
     Name = "${var.cluster_name}"
   }
@@ -20,7 +18,7 @@ locals {
 }
 
 resource "aws_launch_configuration" "example1" {
-  name            = var.cluster_name
+  name            = "${var.cluster_name}-lc"
   image_id        = var.ami
   instance_type   = "t2.micro"
   security_groups = [aws_security_group.instance.id]

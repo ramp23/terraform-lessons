@@ -5,6 +5,9 @@ provider "aws" {
 
 module "webserver_cluster" {
   source                 = "../../../modules/services/webserver-cluster"
+
+  ami = "ami-04e601abe3e1a910f"
+  server_text = "Prod Server Text"
   cluster_name           = "prod"
   db_remote_state_bucket = var.db_remote_state_bucket
   db_remote_state_key    = var.db_remote_state_key

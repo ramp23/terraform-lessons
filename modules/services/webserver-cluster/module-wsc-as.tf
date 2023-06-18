@@ -5,8 +5,10 @@ resource "aws_autoscaling_group" "example1" {
   target_group_arns = [aws_lb_target_group.asg.arn]
   health_check_type = "ELB"
 
-  min_size = 2
-  max_size = 3
+  min_size = var.min_size
+  max_size = var.max_size
+
+  min_elb_capacity = var.min_size
 
   tag {
     key                 = "Name"
@@ -15,7 +17,11 @@ resource "aws_autoscaling_group" "example1" {
   }
 
   dynamic "tag" {
-    for_each = var.custom_tags
+    for_each = {
+      for key, value in var.custom_tags:
+      key => upper(value)
+      if key != "Name"
+    }
 
     content {
       key                 = tag.key
