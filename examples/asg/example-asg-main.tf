@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "asg" {
-    source = "../../modules/services/cluster/asg-rolling-deploy"
+    source = "../../modules/cluster/asg-rolling-deploy"
 
     cluster_name = var.cluster_name
     ami = var.ami
